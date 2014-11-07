@@ -1,0 +1,21 @@
+#!/usr/bin/env python2.7
+import aws_list
+import argparse
+
+parser = argparse.ArgumentParser(description='Find and ssh into AWS servers')
+parser.add_argument('servername', metavar='servername', type=str, nargs='?',
+                   help='name of the server (i.e. store-01)')
+
+parser.add_argument('--region', metavar='region', type=str, nargs='?',
+                   help='code of the region (i.e. ap-northeast-1), can be "all"')
+
+args = parser.parse_args()
+
+#print args.get('servername')
+servername = args.servername or ''
+region = args.region or 'us-east-1'
+
+print servername
+servers = aws_list.describe(region)
+
+aws_list.find_instance_by_name(servers, servername)
