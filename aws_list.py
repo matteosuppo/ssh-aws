@@ -8,7 +8,7 @@ import sys
 import subprocess
 
 this_dir = os.path.dirname(os.path.realpath(__file__))
-os.environ['AWS_CONFIG_FILE'] = os.path.join(this_dir, '../config')
+os.environ['AWS_CONFIG_FILE'] = os.path.join(this_dir, 'config')
 os.environ['LC_CTYPE'] = 'en_EN.UTF-8'
 
 def _describe(command=None):
