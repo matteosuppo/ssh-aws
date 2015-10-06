@@ -11,12 +11,13 @@ this_dir = os.path.dirname(os.path.realpath(__file__))
 os.environ['AWS_CONFIG_FILE'] = os.path.join(this_dir, 'config')
 os.environ['LC_CTYPE'] = 'en_EN.UTF-8'
 
+
 def _describe(command=None):
     all_instances = []
     with context_managers.hide('running'):
         instances = json.loads(operations.local(command, capture=True))
-    to_show = ('InstanceId', 'Tags', 'PublicDnsName', 'PrivateIpAddress')
-    #print instances
+    # to_show = ('InstanceId', 'Tags', 'PublicDnsName', 'PrivateIpAddress')
+    # print instances
     for instance in instances['Reservations']:
         if isinstance(instance.get('Instances'), list):
             current_instance = instance.get('Instances')[0]
@@ -28,19 +29,20 @@ def _describe(command=None):
 
 
 def describe(region=None):
-    regions = ['us-east-1',
+    regions = [
+        'us-east-1',
         'ap-northeast-1',
         'sa-east-1',
         'ap-southeast-1',
         'ap-southeast-2',
         'us-west-2',
-#        'us-gov-west-1',
+        # 'us-gov-west-1',
         'us-west-1',
         'eu-west-1']
-#        'fips-us-gov-west-1') 
+#       'fips-us-gov-west-1')
     servers = {}
     # import pdb; pdb.set_trace()
-    pp = pprint.PrettyPrinter(indent=4)
+    pprint.PrettyPrinter(indent=4)
     if region:
         if region != 'all':
             regions = [region]
@@ -51,8 +53,9 @@ def describe(region=None):
 
     return servers
 
+
 def find_instance_by_name(servers, name):
-    pp = pprint.PrettyPrinter(indent=4)
+    pprint.PrettyPrinter(indent=4)
     names_ips = []
     for region, servers_in_region in servers.iteritems():
         for server in servers_in_region:
@@ -70,10 +73,8 @@ def find_instance_by_name(servers, name):
         subprocess.call(['ssh', "admin@%s" % names_ips[0][1]], shell=False)
     else:
         print(names_ips[:])
-    
-         
-                    # else:
-                    #     print("No server found with the string %s in the name" % name)
+    # else:
+    #     print("No server found with the string %s in the name" % name)
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:

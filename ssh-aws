@@ -4,14 +4,14 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Find and ssh into AWS servers')
 parser.add_argument('servername', metavar='servername', type=str, nargs='?',
-                   help='name of the server (i.e. store-01)')
+                    help='name of the server (i.e. store-01)')
 
 parser.add_argument('--region', metavar='region', type=str, nargs='?',
-                   help='code of the region (i.e. ap-northeast-1), can be "all"')
+                    help='code of the region (i.e. ap-northeast-1), can be "all"')
 
 args = parser.parse_args()
 
-#print args.get('servername')
+# print args.get('servername')
 servername = args.servername or ''
 region = args.region or 'us-east-1'
 
